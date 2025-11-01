@@ -147,11 +147,15 @@ sketchybar --add bracket datetime datetime.date datetime.time \
 
 # wifi
 sketchybar --add item wifi right \
-           --set      wifi icon=􀙇  \
+           --set      wifi icon=􀙈  \
                            icon.color=$COLOR_4 \
                            background.border_color=$COLOR_4 \
                            script='./scripts/wifi.sh' \
-                           --subscribe wifi wifi_change
+                           label="hello" \
+                           label.max_chars=3 \
+                           label.scroll_duration=30 \
+                           scroll_texts=true \
+                           update_freq=10
 # weather
 sketchybar --add item weather right                                 \
            --set      weather icon=􀇛                                \
