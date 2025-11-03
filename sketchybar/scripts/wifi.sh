@@ -1,4 +1,5 @@
 #!/bin/sh
+
 get_icon() {
     if echo "$ssid" | grep -qi "iphone"; then # lol what a hack
     icon=􀉤

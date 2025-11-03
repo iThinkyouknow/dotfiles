@@ -1,3 +1,4 @@
+#!/bin/sh
 
 #Code	Description
 # 0	Clear sky
