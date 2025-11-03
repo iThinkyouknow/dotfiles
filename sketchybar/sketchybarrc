@@ -1,8 +1,3 @@
-BLUE=0xFF1E6E77
-ORANGE=0xFFCC7B6E
-PINK=0xFFD7448A
-GREEN=0xFF638989
-
 COLOR_1=0xFFFFB703
 COLOR_2=0xFFFB8500
 COLOR_3=0xFF4682B4
@@ -11,11 +6,11 @@ COLOR_5=0xFF8ECAE6
 RED=0xFFFF0000
 
 colors=(
-$COLOR_1
-$COLOR_2
-$COLOR_3
-$COLOR_4
-$COLOR_5
+  $COLOR_1
+  $COLOR_2
+  $COLOR_3
+  $COLOR_4
+  $COLOR_5
 )
 
 col_index=0
@@ -61,6 +56,44 @@ title_props=(
   label.max_chars=54
   script="./scripts/title.sh"
 )
+
+cpu_props=(
+  label="99.99%"
+  icon=􀧓
+  icon.padding_right=4
+  background.border_color=${colors[((col_index)) % ${#colors[@]}]}
+  update_freq=1
+  script="./scripts/cpu_and_memory.sh"
+)
+
+cpu_graph_props=(
+  background.height=24
+  background.color=0x00000000
+  background.padding_left=-64
+  y_offset=0
+  graph.line_width=1.5
+  graph.color=${colors[((col_index)) % ${#colors[@]}]}
+)
+
+((col_index++))
+
+memory_props=(
+  label="00GB"
+  icon=􀧖
+  icon.padding_right=4
+  background.border_color=${colors[((col_index)) % ${#colors[@]}]}
+)
+
+memory_graph_props=(
+  background.height=24
+  background.color=0x00000000
+  background.padding_left=-56
+  y_offset=0
+  graph.line_width=1.5
+  graph.color=${colors[((col_index)) % ${#colors[@]}]}
+)
+
+((col_index++))
 
 # right items - left to right
 
@@ -164,6 +197,14 @@ sketchybar --bar "${bar_props[@]}" \
            --add item title left \
            --set      title  "${title_props[@]}" \
            --subscribe title "front_app_switched" \
+           --add item cpu left \
+           --set      cpu "${cpu_props[@]}" \
+           --add graph cpu_graph left 30 \
+           --set       cpu_graph "${cpu_graph_props[@]}" \
+           --add item memory left \
+           --set      memory "${memory_props[@]}" \
+           --add graph memory_graph left 30 \
+           --set       memory_graph "${memory_graph_props[@]}" \
            --add item time right \
            --set      time "${time_props[@]}" \
            --add item date right \
@@ -186,7 +227,7 @@ sketchybar --bar "${bar_props[@]}" \
            --add item battery right \
            --set      battery "${battery_props[@]}" \
            --subscribe battery "power_source_change"
-#
+
 # finish config
 sketchybar --hotload on
 sketchybar --update
