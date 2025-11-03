@@ -14,3 +14,4 @@ get_icon
 
 sketchybar --set $NAME label="$ssid" \
                        icon=$icon
+

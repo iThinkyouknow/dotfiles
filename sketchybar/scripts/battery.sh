@@ -1,5 +1,3 @@
-# adapted from https://github.com/neutonfoo/dotfiles/blob/main/.config/sketchybar/plugins-laptop/battery.sh
-
 battery_status=$(pmset -g batt)
 percentage=$(echo "$battery_status" | grep -Eo "\d+%" | cut -d% -f1)
 charging=$(echo "$battery_status" | grep 'AC Power')

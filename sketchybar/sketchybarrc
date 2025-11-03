@@ -5,227 +5,188 @@ GREEN=0xFF638989
 
 COLOR_1=0xFFFFB703
 COLOR_2=0xFFFB8500
-COLOR_3=0xFF023047
+COLOR_3=0xFF528097
 COLOR_4=0xFF219EBC
 COLOR_5=0xFF8ECAE6
 RED=0xFFFF0000
+
+colors=(
+$COLOR_1
+$COLOR_2
+$COLOR_3
+$COLOR_4
+$COLOR_5
+)
+
+col_index=0
+
+bar_props=(
+  height=36
+  margin=0
+  y_offset=0
+  padding_left=8
+  padding_right=8
+  color=0x30000000
+)
+
+default_props=(
+  updates=when_shown
+  icon.font="SF Pro:Semibold:12.0"
+  icon.color=0xFFFFFFFF
+  label.font="Monaco:Regular:12.0"
+  background.color=0x00000000
+  y_offset=0
+  background.color=0xEB1e1e2e
+  blur_radius=2
+  background.corner_radius=15
+  background.height=30
+  icon.padding_left=12
+  icon.padding_right=4
+  icon.y_offset=1
+  label.y_offset=1
+  label.padding_left=4
+  label.padding_right=12
+  background.padding_left=4
+  background.border_width=1
+)
+
+#app title
+title_props=(
+  label.padding_left=12
+  label="App"
+  background.padding_left=0
+  icon.padding_left=0
+  icon.padding_right=0
+  background.border_color=${colors[((col_index++)) % ${#colors[@]}]}
+  label.max_chars=54
+  script="./scripts/title.sh"
+)
+
+# right items - left to right
+
+battery_props=(
+  icon=
+  icon.color=${colors[col_index % ${#colors[@]}]}
+  background.border_color=${colors[col_index % ${#colors[@]}]}
+  label="--%"
+  script='./scripts/battery.sh'
+  update_freq=30
+)
+
+((col_index++))
+
+weather_props=(
+  icon=􀇛
+  icon.color=${colors[col_index % ${#colors[@]}]}
+  background.border_color=${colors[col_index % ${#colors[@]}]}
+  background.padding_right=4
+  label="--°C"
+  script='./scripts/weather.sh'
+  update_freq=$(( 5 * 60 ))
+)
+
+((col_index++))
+
+audio_props=(
+  icon=􀊡
+  icon.color=${colors[col_index % ${#colors[@]}]}
+  icon.padding_right=0
+  icon.padding_left=8
+  icon.width=32
+  label.padding_left=0
+  label.padding_right=8
+  script="./scripts/audio.sh"
+  background.color=0x00000000
+)
+
+playing_props=(
+  icon=􀊕
+  icon.drawing="off"
+  icon.color=$RED
+  icon.padding_right=0
+  icon.padding_left=8
+  label.padding_left=0
+  label.padding_right=0
+  script="./scripts/audio_playing.sh"
+  update_freq=3
+  background.color=0x00000000
+)
+
+audio_bracket_props=(
+  background.border_color=${colors[col_index % ${#colors[@]}]}
+)
+
+((col_index++))
+
+wifi_props=(
+  icon=􀙈
+  icon.color=${colors[col_index % ${#colors[@]}]}
+  background.border_color=${colors[col_index % ${#colors[@]}]}
+  background.padding_right=8
+  script='./scripts/wifi.sh'
+  label="hello"
+  label.max_chars=3
+  label.scroll_duration=30
+  scroll_texts=true
+)
+
+((col_index++))
+
+time_props=(
+  background.padding_left=0
+  background.color=0x00000000
+  label.padding_left=0
+  label="$(date +'%I:%M')"
+  script='./scripts/time.sh'
+  update_freq=1
+)
+
+date_props=(
+  icon=􀐫
+  icon.color=${colors[col_index % ${#colors[@]}]}
+  background.color=0x00000000
+  background.padding_left=0
+  background.padding_right=-4
+  label.padding_right=0
+  label="$(date +'%a %d')"
+  script='./scripts/date.sh'
+  update_freq=60
+)
+
+datetime_bracket_props=(
+  background.border_color=$COLOR_5
+  background.border_color=${colors[col_index % ${#colors[@]}]}
+)
+
 # main bar & defaults
-sketchybar --bar height=36        \
-                 margin=0        \
-                 y_offset=0       \
-                 padding_left=8   \
-                 padding_right=8  \
-                 color=0x30000000
-
-sketchybar --default updates=when_shown                             \
-                     icon.font="SF Pro:Semibold:12.0"  \
-                     icon.color=0xFFFFFFFF                          \
-                     label.font="Monaco:Regular:12.0" \
-                     background.color=0x00000000                    \
-                     y_offset=0 \
-                     background.color=0xEB1e1e2e                    \
-                     blur_radius=2                                  \
-                     background.corner_radius=15                    \
-                     background.height=30                           \
-                     icon.padding_left=12                           \
-                     icon.padding_right=4                           \
-                     icon.y_offset=1 \
-                     label.y_offset=1 \
-                     label.padding_left=4                           \
-                     label.padding_right=12                         \
-                     background.padding_left=4                      \
-                     background.border_width=1
-
-# ~~ left items ~~
-
-# # space numbers
-# SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
-# SPACES=()
+sketchybar --bar "${bar_props[@]}" \
+           --default "${default_props[@]}" \
+           --add item title left \
+           --set      title  "${title_props[@]}" \
+           --subscribe title "front_app_switched" \
+           --add item time right \
+           --set      time "${time_props[@]}" \
+           --add item date right \
+           --set      date "${date_props[@]}" \
+           --add bracket datetime date time \
+           --set         datetime "${datetime_bracket_props[@]}" \
+           --add item wifi right \
+           --set      wifi "${wifi_props[@]}" \
+           --subscribe wifi "wifi_change" \
+           --add item audio right \
+           --set      audio "${audio_props[@]}" \
+           --subscribe audio "volume_change" \
+           --add item playing right \
+           --set      playing "${playing_props[@]}" \
+           --subscribe playing "media_change" \
+           --add bracket audio_bracket audio playing \
+           --set         audio_bracket "${audio_bracket_props[@]}" \
+           --add item weather right \
+           --set      weather "${weather_props[@]}" \
+           --add item battery right \
+           --set      battery "${battery_props[@]}" \
+           --subscribe battery "power_source_change"
 #
-# for i in "${!SPACE_ICONS[@]}"
-# do
-#   sid=$(($i+1))
-#   SPACES+=(space.$sid)
-#   sketchybar --add space space.$sid left \
-#              --set space.$sid associated_space=$sid \
-#                               icon=${SPACE_ICONS[i]} \
-#                               icon.highlight_color=0xFFFFFFFF \
-#                               icon.align=center \
-#                               icon.width=30 \
-#                               label.drawing=off \
-#                               click_script="yabai -m space --focus $sid"
-# done
-#
-# # create new space button
-# sketchybar --add item new_space left                        \
-#            --set      new_space icon.width=24               \
-#                                 label.padding_right=2       \
-#                                 icon.align=center           \
-#                                 icon.padding_right=2        \
-#                                 icon=+                      \
-#                                 click_script='./scripts/new_space.sh'
-#
-# # consolidate space numbers and add a background
-# sketchybar --add bracket spaces '/space\..*/' new_space                \
-#            --set         spaces background.color=0xEB1e1e2e            \
-#                                 background.corner_radius=15            \
-#                                 background.border_width=1              \
-#                                 background.border_color=$COLOR_3          \
-#                                 blur_radius=2                          \
-#                                 background.height=30                    
-#
-# # add space highlighter dot
-# sketchybar --add item highlight_space left                      \
-#            --set      highlight_space width=22                  \
-#                                       background.color=$COLOR_3    \
-#                                       background.height=22      \
-#                                       background.corner_radius=11 \
-#                                       script='./scripts/highlight_space.sh'
-#
-# sketchybar --subscribe highlight_space space_change
-#
-# # overlay numbers above space highlighter dot
-# for i in "${!SPACE_ICONS[@]}"
-# do
-#   sid=$(($i+1))
-#   SPACES+=(space.$sid)
-#   sketchybar --add space space_ex.$sid left \
-#              --set space_ex.$sid associated_space=$sid \
-#                               icon=${SPACE_ICONS[i]} \
-#                               icon.highlight_color=0xFFFFFFFF \
-#                               icon.align=center \
-#                               icon.width=30 \
-#                               label.drawing=off \
-#                               click_script="yabai -m space --focus $sid" 
-# done
-
-# sketchybar --set space_ex.1 padding_left=-999999
-
-# update defaults
-# sketchybar --default                                                \
-#                      background.color=0xEB1e1e2e                    \
-#                      blur_radius=2                                  \
-#                      background.corner_radius=15                    \
-#                      background.height=30                           \
-#                      icon.padding_left=12                           \
-#                      icon.padding_right=4                           \
-#                      label.padding_left=4                           \
-#                      label.padding_right=12                         \
-#                      background.padding_left=4                      \
-#                      background.border_width=1
-
-
-# ~~ center items ~~
-
-# app title
-sketchybar --add item title left                                    \
-           --set      title label.padding_left=12                   \
-                            label="App"                             \
-                            background.padding_left=0               \
-                            icon.padding_left=0                     \
-                            icon.padding_right=0                    \
-                            background.border_color=$COLOR_1        \
-                            label.max_chars=54                      \
-                            script="./scripts/title.sh"             \
-          --subscribe title front_app_switched
-                            # scroll_texts=on                         \
-                            # label.scroll_duration=200
-
-# ~~ right items ~~
-
-# time
-
-sketchybar --add item datetime.time right                                    \
-           --set      datetime.time background.padding_left=0 \
-                          background.color=0x00000000 \
-                          label.padding_left=0 \
-                          label="$(date +'%I:%M')"              \
-                          script='./scripts/time.sh'               \
-                          update_freq=1
-
-sketchybar --add item datetime.date right                                    \
-           --set      datetime.date icon=􀐫                                   \
-                      icon.color=$COLOR_5 \
-                      background.color=0x00000000 \
-                      background.padding_left=0 \
-                      background.padding_right=-4 \
-                      label.padding_right=0 \
-                           label="$(date +'%a %d')"              \
-                           script='./scripts/date.sh'               \
-                           update_freq=60
-
-sketchybar --add bracket datetime datetime.date datetime.time \
-           --set datetime background.border_color=$COLOR_5
-
-# wifi
-sketchybar --add item wifi right \
-           --set      wifi icon=􀙈  \
-                           icon.color=$COLOR_4 \
-                           background.border_color=$COLOR_4 \
-                           background.padding_right=8 \
-                           script='./scripts/wifi.sh' \
-                           label="hello" \
-                           label.max_chars=3 \
-                           label.scroll_duration=30 \
-                           scroll_texts=true \
-                           update_freq=10
-
-sketchybar --add item audio right \
-           --set      audio icon=􀊡  \
-                            icon.color=$COLOR_5 \
-                            icon.padding_right=0 \
-                            icon.padding_left=8 \
-                            icon.width=32 \
-                            label.padding_left=0 \
-                            label.padding_right=8 \
-                            script="./scripts/audio.sh" \
-                            update_freq=1 \
-                            background.color=0x00000000 \
-                            --subscribe audio volume_change
-
-sketchybar --add item playing right \
-           --set      playing  \
-                            icon=􀊕  \
-                            icon.drawing="off" \
-                            icon.color=$RED \
-                            icon.padding_right=0 \
-                            icon.padding_left=8 \
-                            label.padding_left=0 \
-                            label.padding_right=0 \
-                            script="./scripts/audio_playing.sh" \
-                            update_freq=1 \
-                            background.color=0x00000000 
-
-sketchybar --add bracket audio_bracket audio playing \
-           --set audio_bracket background.border_color=$COLOR_5
-
-# weather
-sketchybar --add item weather right                                 \
-           --set      weather icon=􀇛                                \
-                              icon.color=$COLOR_4                    \
-                              background.border_color=$COLOR_4       \
-                              background.padding_right=4 \
-                              label="--°C"                          \
-                              script='./scripts/weather.sh'         \
-                              update_freq=$(( 5 * 60 ))
-
-# battery
-sketchybar --add item battery right                                 \
-           --set      battery icon=                                \
-                              icon.color=$COLOR_2                   \
-                              background.border_color=$COLOR_2       \
-                              label="--%"                           \
-                              script='./scripts/battery.sh'         \
-                              update_freq=20 \
-                              --subscribe battery power_source_change
-
-
-
-sketchybar --add item title_proxy right                             \
-           --set      title_proxy y_offset=100                      \
-                                  label="Title"
-
-
 # finish config
 sketchybar --hotload on
 sketchybar --update
