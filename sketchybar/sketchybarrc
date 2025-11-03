@@ -45,11 +45,19 @@ default_props=(
   background.border_width=1
 )
 
+apple_props=(
+  icon=􀣺
+  icon.font.size=24
+  icon.padding_right=0
+  label.padding_left=0
+  background.padding_left=0
+  background.color=0x00000000
+)
+
 #app title
 title_props=(
   label.padding_left=12
   label="App"
-  background.padding_left=0
   icon.padding_left=0
   icon.padding_right=0
   background.border_color=${colors[((col_index++)) % ${#colors[@]}]}
@@ -194,6 +202,8 @@ datetime_bracket_props=(
 # main bar & defaults
 sketchybar --bar "${bar_props[@]}" \
            --default "${default_props[@]}" \
+           --add item apple left \
+           --set      apple "${apple_props[@]}" \
            --add item title left \
            --set      title  "${title_props[@]}" \
            --subscribe title "front_app_switched" \
