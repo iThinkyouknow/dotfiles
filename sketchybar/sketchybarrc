@@ -21,7 +21,7 @@ bar_props=(
   y_offset=0
   padding_left=8
   padding_right=8
-  color=0x30000000
+  color=0x00000000
 )
 
 default_props=(
@@ -176,6 +176,7 @@ wifi_props=(
 
 time_props=(
   background.padding_left=0
+  icon.padding_left=0
   background.color=0x00000000
   label.padding_left=0
   label="$(date +'%I:%M')"
@@ -188,7 +189,7 @@ date_props=(
   icon.color=${colors[col_index % ${#colors[@]}]}
   background.color=0x00000000
   background.padding_left=0
-  background.padding_right=-4
+  background.padding_right=0
   label.padding_right=0
   label="$(date +'%a %d')"
   script='./scripts/date.sh'
