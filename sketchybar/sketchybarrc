@@ -57,7 +57,7 @@ apple_props=(
 #app title
 title_props=(
   label.padding_left=12
-  label="App"
+  label="APPLE"
   icon.padding_left=0
   icon.padding_right=0
   background.border_color=${colors[((col_index++)) % ${#colors[@]}]}
@@ -70,8 +70,8 @@ cpu_props=(
   icon=􀧓
   icon.padding_right=4
   background.border_color=${colors[((col_index)) % ${#colors[@]}]}
-  update_freq=1
-  script="./scripts/cpu_and_memory.sh"
+  update_freq=30
+  script="./scripts/cpu.sh"
 )
 
 cpu_graph_props=(
@@ -86,9 +86,11 @@ cpu_graph_props=(
 ((col_index++))
 
 memory_props=(
-  label="00GB"
+  label="0.00GB"
   icon=􀧖
   icon.padding_right=4
+  update_freq=30
+  script="./scripts/memory.sh"
   background.border_color=${colors[((col_index)) % ${#colors[@]}]}
 )
 
