@@ -2,6 +2,7 @@ return {
   "tiagovla/tokyodark.nvim",
   opts = {
     -- custom options here
+    transparent_background = true,
     custom_palette = {
     }
   },
