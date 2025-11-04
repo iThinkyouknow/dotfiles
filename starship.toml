@@ -86,8 +86,11 @@ format = '[[($all_status$ahead_behind )](fg:white bg:bg_3)]($style)'
 
 [nodejs]
 symbol = ""
-style = "bg:bg_3"
+style = "bg:bg_2"
 format = '[[ $symbol( $version) ](fg:#3c873a bg:bg_2)]($style)'
+detect_folders = [ "node_modules" ]
+detect_extensions = []
+detect_files = [ "package.json", ".node-version", ".nvmrc", "!bunfig.toml", "!bun.lock", "!bun.lockb" ]
 
 [c]
 symbol = " "
