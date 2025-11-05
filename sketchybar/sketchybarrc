@@ -110,11 +110,12 @@ memory_graph_props=(
 # right items - left to right
 
 battery_props=(
-  icon=
+  icon="􀛨 "
   icon.padding_right=-12
   icon.color=${colors[col_index % ${#colors[@]}]}
+  icon.font.size=30.0
   background.border_color=${colors[col_index % ${#colors[@]}]}
-  label="--%"
+  label="00%"
   label.align="center"
   label.padding_right=52
   label.width=28
