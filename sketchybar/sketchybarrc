@@ -26,7 +26,7 @@ bar_props=(
 
 default_props=(
   updates=when_shown
-  icon.font="SF Pro:Semibold:12.0"
+  icon.font="SF Pro:Semibold:14.0"
   icon.color=0xFFFFFFFF
   label.font="Monaco:Regular:12.0"
   background.color=0x00000000
@@ -37,7 +37,7 @@ default_props=(
   background.height=30
   icon.padding_left=12
   icon.padding_right=4
-  icon.y_offset=1
+  icon.y_offset=0
   label.y_offset=1
   label.padding_left=4
   label.padding_right=12
