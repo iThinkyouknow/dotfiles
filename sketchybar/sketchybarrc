@@ -111,9 +111,13 @@ memory_graph_props=(
 
 battery_props=(
   icon=
+  icon.padding_right=-12
   icon.color=${colors[col_index % ${#colors[@]}]}
   background.border_color=${colors[col_index % ${#colors[@]}]}
   label="--%"
+  label.align="center"
+  label.padding_right=52
+  label.width=28
   script='./scripts/battery.sh'
   update_freq=30
 )

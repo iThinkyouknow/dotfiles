@@ -22,7 +22,7 @@ case ${percentage} in
     icon="􀛩"
     ;;
   [0-9])
-    icon="􀢋"
+    icon="􀛪"
     ;;
 esac
 
@@ -32,4 +32,5 @@ fi
 
 sketchybar --set battery \
     icon=$icon \
+    icon.font.size=30.0 \
     label="${percentage}%"
