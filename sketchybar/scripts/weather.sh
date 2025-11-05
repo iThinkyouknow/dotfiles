@@ -17,16 +17,16 @@
 #
 get_icon() {
   case $weather_code in
-    0 | 1) icon=􀆭  ;;
-    2) icon=􀇃  ;;
-    3 | 45 | 48) icon=􀇋  ;;
-    51 | 61 | 80) icon=􀇗  ;;
-    53 | 63 | 81) icon=􀇇  ;;
-    55 | 65 | 82) icon=􀇉  ;;
-    56 | 66) icon=􀇍  ;;
-    57 | 67 | 85 | 86) icon=􀇑  ;;
-    71 | 73 | 75 | 77) icon=􀇏  ;;
-    95 | 96 | 99) icon=􀇟  ;;
+    0 | 1) icon="􀆭 ";;
+    2) icon="􀇃 " ;;
+    3 | 45 | 48) icon="􀇋 " ;;
+    51 | 61 | 80) icon="􀇗 " ;;
+    53 | 63 | 81) icon="􀇇 " ;;
+    55 | 65 | 82) icon="􀇉 ";;
+    56 | 66) icon="􀇍 " ;;
+    57 | 67 | 85 | 86) icon="􀇑 " ;;
+    71 | 73 | 75 | 77) icon="􀇏 " ;;
+    95 | 96 | 99) icon="􀇟 ";;
   esac
 }
 
@@ -42,3 +42,4 @@ celsius=$(echo "$weather" | jq -r ".current_units.temperature_2m")
 get_icon
 sketchybar --set $NAME drawing=on icon=$icon label="$temp/$apparent_temperature$celsius" \
            --set weather_rh label="${relative_humidity}RH"
+

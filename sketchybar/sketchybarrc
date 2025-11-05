@@ -125,22 +125,27 @@ battery_props=(
 ((col_index++))
 
 weather_rh_props=(
+  icon.size=0
+  icon.padding_right=0
+  icon.padding_left=0
   label="99RH"
-  background.color=0x00000000
+  label.align="left"
+  label.width=32
   label.padding_right=0
   label.padding_left=0
-  background.padding_right=-58
-  background.padding_left=22
   label.font.size=8
   label.y_offset=-4
+  background.color=0x00000000
+  background.padding_left=40
 )
 
 weather_props=(
-  icon=􀇛
+  icon="􀇛 "
   icon.color=${colors[col_index % ${#colors[@]}]}
   background.border_color=${colors[col_index % ${#colors[@]}]}
   background.padding_right=4
-  label="--°C"
+  background.padding_left=-69
+  label="32.2/35.4°C"
   label.font.size=8
   label.y_offset=4
   script='./scripts/weather.sh'
