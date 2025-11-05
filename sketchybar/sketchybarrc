@@ -76,7 +76,7 @@ cpu_props=(
 )
 
 cpu_graph_props=(
-  background.height=24
+  background.height=18
   background.color=0x00000000
   background.padding_left=-64
   y_offset=0
@@ -97,9 +97,9 @@ memory_props=(
 )
 
 memory_graph_props=(
-  background.height=24
+  background.height=18
   background.color=0x00000000
-  background.padding_left=-56
+  background.padding_left=-64
   y_offset=0
   graph.line_width=1.5
   graph.color=${colors[((col_index)) % ${#colors[@]}]}
