@@ -125,7 +125,6 @@ battery_props=(
 ((col_index++))
 
 weather_rh_props=(
-  icon.size=0
   icon.padding_right=0
   icon.padding_left=0
   label="100RH"
