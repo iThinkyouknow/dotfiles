@@ -124,12 +124,25 @@ battery_props=(
 
 ((col_index++))
 
+weather_rh_props=(
+  label="99RH"
+  background.color=0x00000000
+  label.padding_right=0
+  label.padding_left=0
+  background.padding_right=-58
+  background.padding_left=22
+  label.font.size=8
+  label.y_offset=-4
+)
+
 weather_props=(
   icon=􀇛
   icon.color=${colors[col_index % ${#colors[@]}]}
   background.border_color=${colors[col_index % ${#colors[@]}]}
   background.padding_right=4
   label="--°C"
+  label.font.size=8
+  label.y_offset=4
   script='./scripts/weather.sh'
   update_freq=$(( 5 * 60 ))
 )
@@ -242,6 +255,8 @@ sketchybar --bar "${bar_props[@]}" \
            --set         audio_bracket "${audio_bracket_props[@]}" \
            --add item weather right \
            --set      weather "${weather_props[@]}" \
+           --add item weather_rh right \
+           --set      weather_rh "${weather_rh_props[@]}" \
            --add item battery right \
            --set      battery "${battery_props[@]}" \
            --subscribe battery "power_source_change"

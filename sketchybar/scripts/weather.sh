@@ -40,5 +40,5 @@ relative_humidity=$(echo "$weather" | jq -r ".current.relative_humidity_2m")
 weather_code=$(echo "$weather" | jq -r ".current.weather_code")
 celsius=$(echo "$weather" | jq -r ".current_units.temperature_2m")
 get_icon
-sketchybar --set $NAME drawing=on icon=$icon label="$temp/$apparent_temperature$celsius ${relative_humidity}RH"
-
+sketchybar --set $NAME drawing=on icon=$icon label="$temp/$apparent_temperature$celsius" \
+           --set weather_rh label="${relative_humidity}RH"
