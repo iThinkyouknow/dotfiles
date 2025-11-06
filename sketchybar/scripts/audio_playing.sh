@@ -7,3 +7,10 @@ else
   sketchybar --set $NAME icon.drawing="off"
 fi
 
+case "$SENDER" in
+  "mouse.entered")
+    sketchybar --set $NAME popup.drawing="on" \
+               --trigger "media_change"
+    ;;
+  "mouse.exited" | "mouse.exited.global") sketchybar --set $NAME popup.drawing="off" ;;
+esac

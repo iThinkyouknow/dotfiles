@@ -179,6 +179,20 @@ playing_props=(
   script="./scripts/audio_playing.sh"
   update_freq=3
   background.color=0x00000000
+  popup.drawing="off"
+  popup.background.color=0xFF1e1e2e
+  popup.background.corner_radius=10
+  popup.background.border_color=${colors[col_index % ${#colors[@]}]}
+  popup.background.border_width=1
+  popup.y_offset=8
+  popup.align="right"
+)
+
+playing_details_popover_props=(
+  label=""
+  script="./scripts/audio_playing_details.sh"
+  updates="when_shown"
+  label.padding_right=24
 )
 
 audio_bracket_props=(
@@ -257,7 +271,13 @@ sketchybar --bar "${bar_props[@]}" \
            --subscribe audio "volume_change" \
            --add item playing right \
            --set      playing "${playing_props[@]}" \
-           --subscribe playing "media_change" \
+           --subscribe playing "media_change" mouse.entered mouse.exited mouse.exited.global \
+           --add item playing_details_popover popup.playing \
+           --set      playing_details_popover "${playing_details_popover_props[@]}" \
+           --subscribe playing_details_popover "media_change" \
+           --add item playing_details_popover_2 popup.playing \
+           --add item playing_details_popover_3 popup.playing \
+           --add item playing_details_popover_4 popup.playing \
            --add bracket audio_bracket audio playing \
            --set         audio_bracket "${audio_bracket_props[@]}" \
            --add item weather right \
