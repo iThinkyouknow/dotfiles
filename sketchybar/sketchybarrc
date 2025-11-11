@@ -159,6 +159,7 @@ audio_props=(
   icon=􀊡
   icon.color=${colors[col_index % ${#colors[@]}]}
   icon.padding_right=12
+  icon.align="center"
   icon.width=32
   icon.padding_left=0
   label.width=0
