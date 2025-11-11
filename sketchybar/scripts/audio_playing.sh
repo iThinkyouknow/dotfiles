@@ -9,8 +9,16 @@ fi
 
 case "$SENDER" in
   "mouse.entered")
-    sketchybar --set $NAME popup.drawing="on" \
-               --trigger "media_change"
+    icon_drawing=$(echo $(sketchybar --query $NAME) | jq -r ".icon.drawing")
+    case "$icon_drawing" in
+      "off" | "no" | "false" | false | 0 | "0")
+        sketchybar --set $NAME popup.drawing="off" \
+          ;;
+      *)
+        sketchybar --set $NAME popup.drawing="on" \
+                   --trigger "media_change"
+        ;;
+    esac
     ;;
   "mouse.exited" | "mouse.exited.global") sketchybar --set $NAME popup.drawing="off" ;;
 esac
